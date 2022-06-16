@@ -38,8 +38,7 @@ copy.addEventListener("click", async (e) => {
 	// split the string of timestamps with backslash ("\")
 	const arrayPath = vid.value.split("\\");
 	// get the name of the video
-	vidName = arrayPath[arrayPath.length - 1];
-	console.log(arrayPath[arrayPath.length - 1]);
+	vidName = sessionStorage.getItem("vidplayer");
 	// get data from the fetched data
 	let { data, hasData } = await fetchData();
 	// declare temporary object container for the result of all timestamp data
@@ -56,7 +55,7 @@ copy.addEventListener("click", async (e) => {
 	} else {
 		textCopied.value = JSON.stringify(getTimeStamps(vidName));
 	}
-
+	console.log(tempObj);
 	// select input field
 	textCopied.select();
 	// for android devices

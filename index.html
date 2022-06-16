@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="shortcut icon" href="img/play.png" type="image/x-icon" />
+		<title>CHAPTERS.</title>
+		<link rel="stylesheet" href="./src/app.css" />
+	</head>
+	<body>
+		<nav>
+			<div>
+				<img src="./img/play.png" alt="" class="logo" />
+				<h1>CHAPTERS.</h1>
+			</div>
+			<div>
+				<span class="add-chapter-btn">Add chapters</span>
+				<label for="vid">Browse</label>
+				<input class="vid" name="vid" id="vid" hidden type="file" />
+			</div>
+		</nav>
+		<span class="bg"></span>
+		<main>
+			<div>
+				<video controls>
+					<source src="" type="video/mp4" />
+				</video>
+			</div>
+			<div class="add-chapters">
+				<textarea name="" id="textArea" cols="30" rows="10"></textarea>
+				<input type="text" name="" id="text-copied" hidden />
+				<button class="copy">Copy</button>
+			</div>
+			<div class="chapters-container">
+				<div class="chapters-con">
+					<div class="chapter-title">
+						<h3>Chapters</h3>
+					</div>
+					<div class="chapters-body">
+						<!-- chapters here -->
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- import script -->
+		<script src="src/app.js"></script>
+	</body>
+</html>

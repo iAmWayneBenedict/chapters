@@ -8,6 +8,28 @@ const addChapters = document.querySelector(".add-chapters");
 const addChapterBtn = document.querySelector(".add-chapter-btn");
 const bg = document.querySelector(".bg");
 
+const hasUrlPath = () => {
+	return !!window.location.search.length;
+};
+
+const hasVidSessionPath = () => {
+	return sessionStorage.getItem("vidplayer") !== null;
+};
+
+const getVidUrlTime = () => {
+	if (!hasUrlPath()) return 404;
+
+	let url = window.location;
+	let urlParameters = url.search.replace("?", "");
+	return urlParameters.split("&")[1].split("=")[1];
+};
+
+const getVidSessionPath = () => {
+	if (!hasVidSessionPath()) return 404;
+
+	return sessionStorage.getItem("vidplayer");
+};
+
 addChapterBtn.addEventListener("click", (event) => {
 	addChapters.style.display = "flex";
 	bg.style.display = "flex";
@@ -27,7 +49,8 @@ const fetchData = async () => {
 		req = await fetch("jsonfile.json");
 		data = await req.json();
 	} catch (error) {
-		alert("No data in JSON file");
+		console.log("No data in JSON file");
+		return { data: "", hasData: false };
 	}
 	const hasData = Object.keys(data).length !== 0;
 
@@ -35,6 +58,10 @@ const fetchData = async () => {
 };
 
 copy.addEventListener("click", async (e) => {
+	if (!hasUrlPath()) {
+		alert("Please browse a video before entering timestamps");
+		return;
+	}
 	// split the string of timestamps with backslash ("\")
 	const arrayPath = vid.value.split("\\");
 	// get the name of the video
@@ -55,7 +82,7 @@ copy.addEventListener("click", async (e) => {
 	} else {
 		textCopied.value = JSON.stringify(getTimeStamps(vidName));
 	}
-	console.log(tempObj);
+
 	// select input field
 	textCopied.select();
 	// for android devices
@@ -80,11 +107,16 @@ const getTimeStamps = (vidName) => {
 		let tempObject = {};
 		// declare a string container for the timestamps
 		let timeStamp = "";
+		let hasTimeStampParenthesis = false;
 		// loop through the value of the timestamps in each of the characters
 		for (let index = 0; index < val.length; index++) {
 			// removes all emojis
 			val = val.replace(/[^\p{L}\p{N}\p{P}\p{Z}{\^\$}]/gu, "").trim();
 			// verify if the current character is a number or a colon
+			if (val.charAt(index) === "(") {
+				hasTimeStampParenthesis = true;
+				continue;
+			}
 			if (!isNaN(val.charAt(index)) || val.charAt(index) === ":") {
 				// verify if the current character is close bracket or a space, then break the loop
 				if (val.charAt(index) === ")" || val.charAt(index) === " ") {
@@ -96,6 +128,12 @@ const getTimeStamps = (vidName) => {
 				}
 			}
 		}
+		if (hasTimeStampParenthesis) {
+			val = val.replace(`(${timeStamp}) `, "");
+		} else {
+			val = val.replace(`${timeStamp} `, "");
+		}
+
 		// declare a short hand notation for the seconds, minutes, and hours
 		// the timestamp should be reversed in order to verify if video takes an hour
 		let [seconds, minutes, hours] = timeStamp.split(":").reverse();
@@ -115,28 +153,6 @@ const getTimeStamps = (vidName) => {
 	jsonTimeStamp[vidName] = tempArray;
 	// return the jsonTimeStamp
 	return jsonTimeStamp;
-};
-
-const hasUrlPath = () => {
-	return !!window.location.search.length;
-};
-
-const hasVidSessionPath = () => {
-	return sessionStorage.getItem("vidplayer") !== null;
-};
-
-const getVidUrlTime = () => {
-	if (!hasUrlPath()) return 404;
-
-	let url = window.location;
-	let urlParameters = url.search.replace("?", "");
-	return urlParameters.split("&")[1].split("=")[1];
-};
-
-const getVidSessionPath = () => {
-	if (!hasVidSessionPath()) return 404;
-
-	return sessionStorage.getItem("vidplayer");
 };
 
 const chapterTemplate = (

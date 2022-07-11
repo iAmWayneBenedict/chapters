@@ -21,7 +21,8 @@ const getVidUrlTime = () => {
 
 	let url = window.location;
 	let urlParameters = url.search.replace("?", "");
-	return urlParameters.split("&")[1].split("=")[1];
+	let urlArray = urlParameters.split("&");
+	return urlArray[urlArray.length - 1].split("=")[1];
 };
 
 const getVidSessionPath = () => {

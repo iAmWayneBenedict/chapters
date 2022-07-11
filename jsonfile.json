@@ -337,5 +337,24 @@
 		{ "time": 12157, "val": "- Class Methods" },
 		{ "time": 12500, "val": "- Final Project - Building a math quiz" },
 		{ "time": 13945, "val": "- Outro & next steps" }
+	],
+	"Sass, BEM, & Responsive Design (4 hr beginners course).mp4": [
+		{ "time": null, "val": "" },
+		{ "time": 0, "val": "- Intro" },
+		{ "time": 22, "val": "- What is Sass?" },
+		{ "time": 77, "val": "- Compiling Sass with VS Code extensions" },
+		{ "time": 769, "val": "- Sass partials" },
+		{ "time": 1577, "val": "- Sass variables and CSS custom properties" },
+		{ "time": 2625, "val": "- Building the demo responsive website" },
+		{ "time": 3000, "val": "- Sass and BEM" },
+		{ "time": 3428, "val": "- Building the responsive mobile layout" },
+		{ "time": 3870, "val": "- Building the desktop layout" },
+		{ "time": 4690, "val": "- Setting widths" },
+		{ "time": 5768, "val": "- Sass mixins" },
+		{ "time": 7595, "val": "- Responsive typography" },
+		{ "time": 9204, "val": "- Sass functions" },
+		{ "time": 11019, "val": "- Why I use em units in media queries" },
+		{ "time": 11449, "val": "- Nesting and BEM" },
+		{ "time": 12923, "val": "- Helper/Utility classes" }
 	]
 }

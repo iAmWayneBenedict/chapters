@@ -31,6 +31,10 @@ const getVidSessionPath = () => {
 };
 
 addChapterBtn.addEventListener("click", (event) => {
+	if (!hasUrlPath()) {
+		alert("Please browse a video before entering timestamps");
+		return;
+	}
 	addChapters.style.display = "flex";
 	bg.style.display = "flex";
 });
@@ -58,12 +62,6 @@ const fetchData = async () => {
 };
 
 copy.addEventListener("click", async (e) => {
-	if (!hasUrlPath()) {
-		alert("Please browse a video before entering timestamps");
-		return;
-	}
-	// split the string of timestamps with backslash ("\")
-	const arrayPath = vid.value.split("\\");
 	// get the name of the video
 	vidName = sessionStorage.getItem("vidplayer");
 	// get data from the fetched data
@@ -205,7 +203,7 @@ const chapterToggle = function () {
 };
 
 const setVidData = async (event) => {
-	if (getVidSessionPath() === 404) return;
+	if (getVidSessionPath() === 404 || !hasUrlPath()) return;
 
 	let vidSessionPath = getVidSessionPath();
 	video.src = `vids/${vidSessionPath}`;

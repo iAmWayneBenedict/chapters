@@ -142,6 +142,7 @@ const getTimeStamps = (vidName) => {
 		hours = parseInt(hours) * 60 * 60 || 0;
 		// add the seconds, minutes, and hours to get the timestamp
 		let time = parseInt(seconds) + minutes + hours;
+		console.log(time);
 		// set the time and value to the tempObject
 		tempObject = { time, val };
 		// push the tempObject to the tempArray

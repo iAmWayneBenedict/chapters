@@ -53,11 +53,22 @@ main {
 	flex-direction: row;
 	width: 100%;
 	/* height: 50rem; */
-	max-height: 50rem;
+	/* max-height: 50rem; */
 }
 
 main > div:first-child {
+	border-radius: 1rem;
+	overflow: hidden;
 	width: 70%;
+	height: 100%;
+}
+
+main.theatre {
+	flex-direction: column;
+}
+
+main.theatre > div:first-child {
+	width: 100%;
 	height: 100%;
 }
 
@@ -67,14 +78,22 @@ main > div:first-child video {
 	object-fit: contain;
 }
 
-video {
+main.theatre video {
 	max-height: 50rem;
+	height: 100%;
+}
+
+video {
 	min-height: 10rem;
-	max-width: 80rem;
 	min-width: 10rem;
 	height: 100%;
 	width: 100%;
-	border-radius: 1rem;
+	background-color: black;
+}
+
+main.theatre .chapters-container {
+	margin: 2rem 0rem;
+	width: 100%;
 }
 
 .chapters-container {
@@ -190,6 +209,179 @@ span.bg {
 
 .add-chapters button {
 	padding: 0.5rem 0;
+}
+/* .video-container:hover .video-nav {
+	display: flex;
+} */
+.video-nav {
+	position: absolute;
+	width: 100%;
+	height: 5.5rem;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	padding: 0 1rem 0;
+	z-index: 100;
+	background: rgb(0, 0, 0);
+	background: linear-gradient(
+		0deg,
+		rgba(0, 0, 0, 1) 0%,
+		rgba(0, 0, 0, 0.5816527294511555) 51%,
+		rgba(0, 212, 255, 0) 100%
+	);
+}
+
+.sliced-timeline-con {
+	position: relative;
+	cursor: pointer;
+	border-radius: 50px;
+	padding: 20px 0;
+	transition: all 100ms ease;
+}
+
+.slider-sliced {
+	z-index: 1 !important;
+}
+
+.sliced-timeline-con:hover,
+.sliced-timeline-con:hover .slider-sliced,
+.sliced-timeline-con:hover .played-sliced,
+.sliced-timeline-con:hover .timeskip-sliced {
+	height: 8px;
+}
+
+.played-sliced {
+	position: absolute;
+	height: 4px;
+	z-index: 10;
+}
+
+.slider-sliced,
+.played-sliced,
+.timeskip-sliced {
+	width: 100%;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+	border-radius: 50px;
+	overflow: hidden;
+}
+
+.slider-sliced,
+.timeskip-sliced {
+	position: absolute;
+	height: 4px;
+	z-index: 5;
+}
+
+.controls {
+	margin-top: 5px;
+}
+
+.slider-sliced,
+.timeskip-sliced,
+.played-sliced {
+	display: flex;
+}
+
+.slider-sliced > span,
+.timeskip-sliced > span,
+.played-sliced > span {
+	height: inherit;
+	margin-right: 2px;
+	border-radius: 50px;
+	overflow: hidden;
+}
+.timeskip-sliced > span,
+.played-sliced > span {
+	background-color: transparent;
+}
+
+.slider-sliced > span:first-child,
+.timeskip-sliced > span:first-child,
+.played-sliced > span:first-child {
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+.slider-sliced > span:last-child,
+.timeskip-sliced > span:last-child,
+.played-sliced > span:last-child {
+	margin-right: 0;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.slider-sliced > span {
+	background-color: rgb(150, 150, 150);
+}
+
+.timeskip-sliced > span,
+.played-sliced > span {
+	position: relative;
+}
+
+.timeskip-sliced span > div,
+.played-sliced span > div {
+	height: 100%;
+	z-index: 100;
+}
+
+.timeskip-sliced span.past > div,
+.played-sliced span.past > div {
+	background-color: rgb(50, 50, 255);
+	width: 100% !important;
+}
+
+.timeskip-sliced span.past > div,
+.timeskip-sliced span.active > div {
+	background-color: rgb(236, 236, 236);
+}
+
+.played-sliced span.active > div {
+	background-color: rgb(50, 50, 255);
+}
+
+.controls {
+	display: flex;
+	justify-content: space-between;
+}
+
+.controls button {
+	background: none;
+	outline: none;
+	border: none;
+
+	cursor: pointer;
+	transform: scale(0.95);
+	transition: all 0.2s ease;
+}
+
+.controls button:hover {
+	transform: scale(1);
+}
+
+.theatre-btn {
+	transform: scale(0.8) !important;
+}
+
+.theatre-btn:hover {
+	transform: scale(0.85) !important;
+}
+
+.left-nav {
+	display: flex;
+	gap: 15px;
+}
+
+.left-nav input {
+	transform: scale(0.75);
+}
+
+.left-nav .volume-con {
+	display: flex;
+	justify-content: space-evenly;
+	padding-left: 2rem !important;
 }
 
 @media screen and (max-width: 1100px) {

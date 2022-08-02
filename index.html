@@ -22,10 +22,43 @@
 		</nav>
 		<span class="bg"></span>
 		<main>
-			<div>
-				<video controls>
+			<div class="video-container" style="position: relative">
+				<video>
 					<source src="" type="video/mp4" />
 				</video>
+				<div class="video-nav">
+					<div class="sliced-timeline-con">
+						<div class="slider-sliced"></div>
+						<div class="played-sliced"></div>
+						<div class="timeskip-sliced"></div>
+					</div>
+					<div class="controls">
+						<div class="left-nav">
+							<div>
+								<button type="button" class="play-btn">
+									<img src="./icons/play.svg" alt="" />
+								</button>
+								<button type="button" style="display: none" class="pause-btn">
+									<img src="./icons/pause.svg" alt="" />
+								</button>
+							</div>
+							<div class="volume-con" style="display: flex">
+								<button type="button" class="volume-btn">
+									<img src="./icons/volume-2.svg" alt="" />
+								</button>
+								<input type="range" value="100" name="" id="" />
+							</div>
+						</div>
+						<div class="right-nav" style="display: flex; gap: 15px">
+							<button type="button" class="theatre-btn">
+								<img src="./icons/theatre.svg" alt="" />
+							</button>
+							<button type="button" class="maximize-btn">
+								<img src="./icons/maximize.svg" alt="" />
+							</button>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="add-chapters">
 				<textarea name="" id="textArea" cols="30" rows="10"></textarea>
@@ -46,5 +79,6 @@
 
 		<!-- import script -->
 		<script src="src/app.js"></script>
+		<script src="src/videoplayer.js"></script>
 	</body>
 </html>

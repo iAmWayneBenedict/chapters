@@ -2,3 +2,5 @@
 *.mp4
 # Ignore all MKV files
 *.mkv
+
+jsonfile.json

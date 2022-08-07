@@ -655,5 +655,29 @@
 		{ "time": 2033, "val": "Part \"Cherry on Top\" - Markdown Cool Features" },
 		{ "time": 2095, "val": "Part \"Super Cherry on Top\" - Other Markup Languages" },
 		{ "time": 2164, "val": "Ending Speech" }
+	],
+	"How To Build A Full Stack Nested Comments System.mp4": [
+		{ "time": 0, "val": "- Introduction" },
+		{ "time": 115, "val": "- Prisma database setup" },
+		{ "time": 806, "val": "- Server setup" },
+		{ "time": 1261, "val": "- Connecting the client to the server" },
+		{ "time": 1857, "val": "- React Router setup" },
+		{ "time": 1999, "val": "- useAsync custom hook" },
+		{ "time": 2518, "val": "- Get post server route" },
+		{ "time": 2663, "val": "- Post context setup" },
+		{ "time": 3044, "val": "- Render comments" },
+		{ "time": 4170, "val": "- Comment form component" },
+		{ "time": 4545, "val": "- Create comment client logic" },
+		{ "time": 4755, "val": "- Create comment server logic" },
+		{ "time": 4881, "val": "- User authentication" },
+		{ "time": 5160, "val": "- Saving comments on the client" },
+		{ "time": 5415, "val": "- Comment reply logic" },
+		{ "time": 5675, "val": "- Update comment server logic" },
+		{ "time": 5880, "val": "- Update comment client logic" },
+		{ "time": 6173, "val": "- Delete comment server logic" },
+		{ "time": 6234, "val": "- Delete comment client logic" },
+		{ "time": 6383, "val": "- User permission UI" },
+		{ "time": 6518, "val": "- Like comments server logic" },
+		{ "time": 7075, "val": "- Like comments client logic" }
 	]
 }

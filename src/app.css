@@ -216,7 +216,7 @@ span.bg {
 .video-nav {
 	position: absolute;
 	width: 100%;
-	height: 5.5rem;
+	height: 5rem;
 	bottom: 0;
 	left: 0;
 	display: flex;
@@ -248,13 +248,15 @@ span.bg {
 .sliced-timeline-con:hover .slider-sliced,
 .sliced-timeline-con:hover .played-sliced,
 .sliced-timeline-con:hover .timeskip-sliced {
-	height: 8px;
+	height: 6px;
 }
 
 .played-sliced {
-	position: absolute;
-	height: 4px;
-	z-index: 10;
+	z-index: 10 !important;
+}
+
+.timeskip-sliced {
+	z-index: 5 !important;
 }
 
 .slider-sliced,
@@ -266,15 +268,9 @@ span.bg {
 	transform: translateY(-50%);
 	border-radius: 50px;
 	overflow: hidden;
-}
-
-.slider-sliced,
-.timeskip-sliced {
 	position: absolute;
-	height: 4px;
-	z-index: 5;
+	height: 3px;
 }
-
 .controls {
 	margin-top: 5px;
 }
@@ -372,6 +368,7 @@ span.bg {
 .left-nav {
 	display: flex;
 	gap: 15px;
+	align-items: center;
 }
 
 .left-nav input {
@@ -381,7 +378,35 @@ span.bg {
 .left-nav .volume-con {
 	display: flex;
 	justify-content: space-evenly;
-	padding-left: 2rem !important;
+	padding-left: 1.5rem !important;
+}
+
+.vid-time {
+	color: #fff;
+	font-size: 14px;
+}
+
+.chapter-tooltip {
+	position: absolute;
+	left: 0;
+	top: -75%;
+	background-color: black;
+	color: white;
+	padding: 0.5rem 1rem;
+	border-radius: 5px;
+	width: fit-content;
+	transform: translateX(-50%);
+	display: none;
+	justify-content: center;
+}
+
+.chapter-tooltip div {
+	width: auto;
+}
+
+.chapter-tooltip span.content {
+	font-size: 14px;
+	width: auto;
 }
 
 @media screen and (max-width: 1100px) {

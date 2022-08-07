@@ -11,11 +11,17 @@ const playedSliced = document.querySelector(".played-sliced");
 const timeskipSliced = document.querySelector(".timeskip-sliced");
 const slicedTimelineCon = document.querySelector(".sliced-timeline-con");
 const volumeCon = document.querySelector(".volume-con");
+const vidDuration = document.querySelector(".vid-duration");
+const vidCurrentTime = document.querySelector(".vid-current-time");
+const chapterTooltip = document.querySelector(".chapter-tooltip .content");
 
-let DATA = {};
+let fetchedData;
+fetchData().then((data) => {
+	fetchedData = data.data[sessionStorage.getItem("vidplayer")];
+});
+
 async function setChapters() {
 	let { data, hasData } = await fetchData();
-	DATA = data;
 	let hasVidData = false;
 
 	if (hasData) {
@@ -102,6 +108,8 @@ function setChapterTimeLine(data, key) {
 
 videoPlayer.onloadeddata = () => {
 	setChapters();
+	setVidDuration();
+	setVidCurrentDuration();
 };
 
 playButton.addEventListener("click", (event) => {
@@ -142,6 +150,8 @@ let currentIndex = 0;
 slicedTimelineCon.addEventListener("mousemove", (event) => {
 	const parentSize = slicedTimelineCon.getBoundingClientRect();
 	const percent = Math.min(Math.max(event.x - parentSize.x), parentSize.width) / parentSize.width;
+	chapterTooltip.parentElement.style.minWidth = "unset";
+	chapterTooltip.parentElement.style.transform = "translateX(-50%)";
 	// console.log(percent * 100);
 
 	let sumOfAllValue = 0;
@@ -160,10 +170,31 @@ slicedTimelineCon.addEventListener("mousemove", (event) => {
 		timeskipSlicedSpans[index].classList.remove("active");
 		if (percent * 100 < spanValue) {
 			currentIndex = index;
+			if (fetchedData) {
+				chapterTooltip.parentElement.style.display = "flex";
+				let containerSize = chapterTooltip.parentElement.getBoundingClientRect();
+
+				if (containerSize.height > 40) {
+					chapterTooltip.parentElement.style.minWidth = "20rem";
+				}
+
+				if (containerSize.right > videoPlayer.clientWidth) {
+					chapterTooltip.parentElement.style.transform = "translateX(-100%)";
+				}
+
+				if (containerSize.left < 96) {
+					chapterTooltip.parentElement.style.transform = "translateX(-10%)";
+				}
+
+				chapterTooltip.textContent = fetchedData[index].val;
+				chapterTooltip.parentElement.style.left = percent * 100 + "%";
+			}
 			break;
 		}
 		sumOfAllValue += parseFloat(sliderSlicedSpans[index].style.width.replace("%", ""));
 	}
+
+	if (sliderSlicedSpans.length === 0) return;
 	let relativeSize = parseFloat(sliderSlicedSpans[currentIndex].style.width.replace("%", ""));
 	let spanWidth = ((percent * 100 - sumOfAllValue) / relativeSize) * 100;
 	timeskipSlicedSpans[currentIndex].firstElementChild.style.width = spanWidth + "%";
@@ -178,6 +209,8 @@ slicedTimelineCon.addEventListener("mouseout", (event) => {
 		timeskipSlicedSpans[index].classList.remove("past");
 		timeskipSlicedSpans[index].classList.remove("active");
 	}
+	chapterTooltip.textContent = "";
+	chapterTooltip.parentElement.style.display = "none";
 });
 
 slicedTimelineCon.addEventListener("click", (event) => {
@@ -188,6 +221,8 @@ slicedTimelineCon.addEventListener("click", (event) => {
 
 currentIndex = 0;
 videoPlayer.addEventListener("timeupdate", (event) => {
+	setVidCurrentDuration();
+
 	const sliderSlicedSpans = sliderSliced.children;
 	const playedSlicedSpans = playedSliced.children;
 	if (sliderSlicedSpans.length !== 0) {
@@ -232,6 +267,14 @@ const formatDuration = (time) => {
 	}
 };
 
+function setVidDuration() {
+	vidDuration.textContent = formatDuration(videoPlayer.duration);
+}
+
+function setVidCurrentDuration() {
+	vidCurrentTime.textContent = formatDuration(videoPlayer.currentTime);
+}
+
 // volume
 volumeCon.children[0].addEventListener("click", (event) => {
 	const rangeInput = volumeCon.children[1];
@@ -245,7 +288,6 @@ volumeCon.children[0].addEventListener("click", (event) => {
 });
 volumeCon.children[1].addEventListener("input", (event) => {
 	setVolumeIcon(event.target);
-	console.log(parseFloat(event.target.value) / 100);
 	videoPlayer.volume = parseFloat(event.target.value) / 100;
 });
 

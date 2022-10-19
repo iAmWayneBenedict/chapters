@@ -6,7 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="shortcut icon" href="img/play.png" type="image/x-icon" />
 		<title>CHAPTERS.</title>
-		<link rel="stylesheet" href="./src/app.css" />
+		<link rel="stylesheets" type="text/css" href="app.css" />
+		<link rel="stylesheet" href="css/index.css" />
 	</head>
 	<body>
 		<nav>
@@ -70,7 +71,7 @@
 			<div class="add-chapters">
 				<textarea name="" id="textArea" cols="30" rows="10"></textarea>
 				<input type="text" name="" id="text-copied" hidden />
-				<button class="copy">Copy</button>
+				<button class="copy">Replace</button>
 			</div>
 			<div class="chapters-container">
 				<div class="chapters-con">
@@ -85,7 +86,8 @@
 		</main>
 
 		<!-- import script -->
-		<script src="src/app.js"></script>
-		<script src="src/videoplayer.js"></script>
+		<script type="module" src="js/app.js"></script>
+		<script type="module" src="js/index.js"></script>
+		<script type="module" src="js/videoplayer.js"></script>
 	</body>
 </html>

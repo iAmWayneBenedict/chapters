@@ -2,5 +2,7 @@
 *.mp4
 # Ignore all MKV files
 *.mkv
+node_modules/
+.env
 
 jsonfile.json

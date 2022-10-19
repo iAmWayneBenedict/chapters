@@ -7,6 +7,7 @@ const chaptersBody = document.querySelector(".chapters-body");
 const addChapters = document.querySelector(".add-chapters");
 const addChapterBtn = document.querySelector(".add-chapter-btn");
 const bg = document.querySelector(".bg");
+import fetchData from "./index.js";
 
 const hasUrlPath = () => {
 	return !!window.location.search.length;
@@ -47,23 +48,8 @@ bg.addEventListener("click", (event) => {
 
 let vidName = "";
 
-//   Fetch data from json file
-const fetchData = async () => {
-	let { req, data } = {};
-	try {
-		req = await fetch("jsonfile.json");
-		data = await req.json();
-	} catch (error) {
-		console.log("No data in JSON file");
-		return { data: "", hasData: false };
-	}
-	const hasData = Object.keys(data).length !== 0;
-
-	return { data, hasData };
-};
-
 copy.addEventListener("click", async (e) => {
-	// get the name of the video
+	//	// get the name of the video
 	vidName = sessionStorage.getItem("vidplayer");
 	// get data from the fetched data
 	let { data, hasData } = await fetchData();
@@ -77,18 +63,48 @@ copy.addEventListener("click", async (e) => {
 			...data,
 			...getTimeStamps(vidName),
 		};
-		textCopied.value = JSON.stringify(tempObj);
+		let response, result;
+		try {
+			response = await fetch("/add", {
+				method: "POST",
+				body: JSON.stringify({ data: tempObj }),
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+				},
+			});
+
+			result = await response.json();
+		} catch (err) {
+			console.log(err);
+		}
+		console.log(result);
 	} else {
-		textCopied.value = JSON.stringify(getTimeStamps(vidName));
+		let response, result;
+		try {
+			response = await fetch("/add", {
+				method: "POST",
+				body: JSON.stringify({ data: getTimeStamps(vidName) }),
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+				},
+			});
+
+			result = await response.json();
+		} catch (err) {
+			console.log(err);
+		}
+		console.log(result);
 	}
 
-	// select input field
-	textCopied.select();
-	// for android devices
-	textCopied.setSelectionRange(0, 99999);
-	// add to clipboard
-	navigator.clipboard.writeText(textCopied.value);
-	alert("Text Copied!");
+	bg.click();
+
+	// // select input field
+	// textCopied.select();
+	// // for android devices
+	// textCopied.setSelectionRange(0, 99999);
+	// // add to clipboard
+	// navigator.clipboard.writeText(textCopied.value);
+	// alert("Text Copied!");
 });
 
 const getTimeStamps = (vidName) => {

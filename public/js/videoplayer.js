@@ -14,6 +14,7 @@ const volumeCon = document.querySelector(".volume-con");
 const vidDuration = document.querySelector(".vid-duration");
 const vidCurrentTime = document.querySelector(".vid-current-time");
 const chapterTooltip = document.querySelector(".chapter-tooltip .content");
+import fetchData from "./index.js";
 
 let fetchedData;
 fetchData().then((data) => {

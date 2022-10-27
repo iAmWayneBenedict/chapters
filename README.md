@@ -1,6 +1,10 @@
 # CHAPTERS
+<<<<<<< HEAD
   An offline web-based video player that can be used like YouTube.  
   This project intends to help the programmers whose just started programming and doesn't have stable internet connection to sustain YouTube consumptions.
+=======
+An offline web-based video player that can be used like YouTube
+>>>>>>> 10f248511f1c540020c5363262b3e95ba67b5f87
 
 ## Features
 
@@ -63,6 +67,10 @@ If there are no timestamps in the video but there are key moments, you can refer
 
 ### Webscraping
 Unfortunately only firefox is supported for webscraping key moments, but I'm working on adding Chrome and Edge
+<<<<<<< HEAD
+=======
+
+>>>>>>> 10f248511f1c540020c5363262b3e95ba67b5f87
 ### Firefox
 Instructions for webscraping key moments
 - Open the video you want to webscrape in YouTube
@@ -123,7 +131,10 @@ alert("Scroll to the last part of the video description and copy the timestamps"
 
 **Server:** Node, Express
 
+<<<<<<< HEAD
 
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+=======
+>>>>>>> 10f248511f1c540020c5363262b3e95ba67b5f87

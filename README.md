@@ -25,7 +25,7 @@ Go to the project directory
 Install dependencies
 
 ```bash
-  npm install
+  yarn install
 ```
 
 Start the server
@@ -62,6 +62,7 @@ If there are no timestamps in the video but there are key moments, you can refer
 
 ### Webscraping
 Unfortunately only firefox is supported for webscraping key moments, but I'm working on adding Chrome and Edge
+
 ### Firefox
 Instructions for webscraping key moments
 - Open the video you want to webscrape in YouTube

@@ -1,11 +1,10 @@
-const http = require("http");
-const cors = require("cors");
 const path = require("path");
-const ejs = require("ejs");
 const fs = require("fs");
-
 const express = require("express");
 const app = express();
+const cheerio = require('cheerio');
+const axios = require('axios');
+const pretty = require("pretty");
 
 // app.use(cors());
 app.use(express.urlencoded({ extended: true }));

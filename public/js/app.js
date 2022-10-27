@@ -49,54 +49,54 @@ bg.addEventListener("click", (event) => {
 let vidName = "";
 
 copy.addEventListener("click", async (e) => {
-	//	// get the name of the video
-	vidName = sessionStorage.getItem("vidplayer");
-	// get data from the fetched data
-	let { data, hasData } = await fetchData();
-	// declare temporary object container for the result of all timestamp data
-	let tempObj = {};
+    //	// get the name of the video
+    vidName = sessionStorage.getItem("vidplayer");
+    // get data from the fetched data
+    let { data, hasData } = await fetchData();
+    // declare temporary object container for the result of all timestamp data
+    let tempObj = {};
 
-	// populate hidden input value with timestamps
-	if (hasData) {
-		// populate tempObj with existing and new timestamps
-		tempObj = {
-			...data,
-			...getTimeStamps(vidName),
-		};
-		let response, result;
-		try {
-			response = await fetch("/add", {
-				method: "POST",
-				body: JSON.stringify({ data: tempObj }),
-				headers: {
-					"Content-type": "application/json; charset=UTF-8",
-				},
-			});
+    // populate hidden input value with timestamps
+    if (hasData) {
+        // populate tempObj with existing and new timestamps
+        tempObj = {
+            ...data,
+            ...getTimeStamps(vidName),
+        };
+        let response, result;
+        try {
+            response = await fetch("/add", {
+                method: "POST",
+                body: JSON.stringify({ data: tempObj }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                },
+            });
 
-			result = await response.json();
-		} catch (err) {
-			console.log(err);
-		}
-		console.log(result);
-	} else {
-		let response, result;
-		try {
-			response = await fetch("/add", {
-				method: "POST",
-				body: JSON.stringify({ data: getTimeStamps(vidName) }),
-				headers: {
-					"Content-type": "application/json; charset=UTF-8",
-				},
-			});
+            result = await response.json();
+        } catch (err) {
+            console.log(err);
+        }
+        console.log(result);
+    } else {
+        let response, result;
+        try {
+            response = await fetch("/add", {
+                method: "POST",
+                body: JSON.stringify({ data: getTimeStamps(vidName) }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                },
+            });
 
-			result = await response.json();
-		} catch (err) {
-			console.log(err);
-		}
-		console.log(result);
-	}
+            result = await response.json();
+        } catch (err) {
+            console.log(err);
+        }
+        console.log(result);
+    }
 
-	bg.click();
+    location.reload();
 
 	// // select input field
 	// textCopied.select();

@@ -7,6 +7,7 @@ const chaptersBody = document.querySelector(".chapters-body");
 const addChapters = document.querySelector(".add-chapters");
 const addChapterBtn = document.querySelector(".add-chapter-btn");
 const bg = document.querySelector(".bg");
+const waitingModal = document.querySelector('.waiting-modal');
 import fetchData from "./index.js";
 
 const hasUrlPath = () => {
@@ -42,61 +43,113 @@ addChapterBtn.addEventListener("click", (event) => {
 });
 
 bg.addEventListener("click", (event) => {
+	if (waitingModal.style.display === "flex") return
 	addChapters.style.display = "none";
 	bg.style.display = "none";
 });
 
+const isUrl = (text) => {
+	if ((text.includes("http") || text.includes("https")) && (text.includes("youtu.be") || text.includes("youtube.com"))) {
+		return true
+	} else {
+		return false
+	}
+}
+
+const handleWebScraping = async (url) => {
+	try {
+		addChapters.style.display = "none";
+		waitingModal.style.display = "flex";
+		bg.style.display = "flex"
+
+		let response = await fetch(
+			"/get-key-moments",
+			{
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				method: "POST",
+				body: JSON.stringify({ data: url }),
+			}
+		);
+
+		// readable json
+		let data = await response.json();
+		if (data.response.reject) {
+			alert("Getting timestamp unsuccessful!\nPlease try again!")
+			waitingModal.style.display = "none";
+			bg.style.display = "none"
+
+			return
+		}
+		textArea.value = data.response.join("")
+		copy.click()
+	} catch (err) {
+		console.log(err)
+	}
+
+	waitingModal.style.display = "none";
+	bg.style.display = "none"
+}
+
 let vidName = "";
 
 copy.addEventListener("click", async (e) => {
-    //	// get the name of the video
-    vidName = sessionStorage.getItem("vidplayer");
-    // get data from the fetched data
-    let { data, hasData } = await fetchData();
-    // declare temporary object container for the result of all timestamp data
-    let tempObj = {};
+	//validate input
+	if (isUrl(textArea.value)) {
+		await handleWebScraping(textArea.value)
 
-    // populate hidden input value with timestamps
-    if (hasData) {
-        // populate tempObj with existing and new timestamps
-        tempObj = {
-            ...data,
-            ...getTimeStamps(vidName),
-        };
-        let response, result;
-        try {
-            response = await fetch("/add", {
-                method: "POST",
-                body: JSON.stringify({ data: tempObj }),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                },
-            });
+		return;
+	}
+	//	// get the name of the video
+	vidName = sessionStorage.getItem("vidplayer");
+	// get data from the fetched data
+	let { data, hasData } = await fetchData();
+	// declare temporary object container for the result of all timestamp data
+	let tempObj = {};
 
-            result = await response.json();
-        } catch (err) {
-            console.log(err);
-        }
-        console.log(result);
-    } else {
-        let response, result;
-        try {
-            response = await fetch("/add", {
-                method: "POST",
-                body: JSON.stringify({ data: getTimeStamps(vidName) }),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                },
-            });
+	// populate hidden input value with timestamps
+	if (hasData) {
+		// populate tempObj with existing and new timestamps
+		tempObj = {
+			...data,
+			...getTimeStamps(vidName),
+		};
+		let response, result;
+		try {
+			response = await fetch("/add", {
+				method: "POST",
+				body: JSON.stringify({ data: tempObj }),
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+				},
+			});
 
-            result = await response.json();
-        } catch (err) {
-            console.log(err);
-        }
-        console.log(result);
-    }
+			result = await response.json();
+		} catch (err) {
+			console.log(err);
+		}
+		console.log(result);
+	} else {
+		let response, result;
+		try {
+			response = await fetch("/add", {
+				method: "POST",
+				body: JSON.stringify({ data: getTimeStamps(vidName) }),
+				headers: {
+					"Content-type": "application/json; charset=UTF-8",
+				},
+			});
 
-    location.reload();
+			result = await response.json();
+		} catch (err) {
+			console.log(err);
+		}
+		console.log(result);
+	}
+
+	location.reload();
 
 	// // select input field
 	// textCopied.select();
@@ -167,6 +220,9 @@ const getTimeStamps = (vidName) => {
 	});
 	// set the jsonTimeStamp to the name of the video along with its value of the tempArray
 	jsonTimeStamp[vidName] = tempArray;
+
+	// reset textarea value
+	textArea.value = ""
 	// return the jsonTimeStamp
 	return jsonTimeStamp;
 };
@@ -277,7 +333,7 @@ video.parentElement.addEventListener("timeupdate", (event) => {
 	localStorage.setItem("vidplayer", JSON.stringify(temp));
 });
 
-const setChaptersHeight = () => {
+export const setChaptersHeight = () => {
 	chaptersBody.style.height = video.parentElement.offsetHeight - 64 - 48 + "px";
 };
 
@@ -292,6 +348,7 @@ window.onresize = () => {
 };
 
 window.onload = () => {
+	textArea.value = ""
 	setVidData();
 	setChaptersHeight();
 };

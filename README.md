@@ -3,12 +3,18 @@
 An offline web-based video player that can be used like YouTube.  
  This project intends to help the programmers whose just started programming and doesn't have stable internet connection to sustain YouTube consumptions.
 
+### :fire: New Features :fire:
+
+-   You can now create folders within vids folder to organize your videos
+-   Manually copypasting timestamps no longer needed. You can now paste the url of YouTube video you want to have timestamps in the add chapters textarea
+
 ## Features
 
 -   Able to run locally or Offline
 -   Chapters/Key Moments like YouTube
 -   Theatre mode
 -   Fullscreen mode
+-   File crawler
 
 ## Run Locally
 
@@ -54,14 +60,18 @@ You can refer to the [Usage/Examples](#usageexamples)
 
 Refresh the page or press `F5` or `Ctrl+R`
 
+### Can I create folders to organize videos?
+
+Yes of course! With our new features you can now create folders to organize your videos
+
 ## Usage/Examples
 
--   Copy `Ctrl+C` the timestamps found in the video description.
+-   Copy `Ctrl+C` the timestamps found in the video description or Copy `Ctrl+C` the YouTube url.
 -   Click the `Add chapters` button
 -   Paste `Ctrl+V` on the textarea
 -   And, click the `Add` button
 
-If there are no timestamps in the video but there are key moments, you can refer to the [Webscraping](#webscraping)
+If you want to manually webscrape timestamps, you can refer to the [Webscraping](#webscraping)
 
 ### Webscraping
 

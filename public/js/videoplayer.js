@@ -15,6 +15,7 @@ const vidDuration = document.querySelector(".vid-duration");
 const vidCurrentTime = document.querySelector(".vid-current-time");
 const chapterTooltip = document.querySelector(".chapter-tooltip .content");
 import fetchData from "./index.js";
+import { setChaptersHeight } from "./app.js";
 
 let fetchedData;
 fetchData().then((data) => {
@@ -144,8 +145,9 @@ theatreBtn.addEventListener("click", (event) => {
 	} else {
 		videoPlayerContainer.classList.add("theatre");
 	}
-	setChaptersHeight();
 });
+
+videoPlayerContainer.addEventListener("transitionend", () => setChaptersHeight());
 
 let currentIndex = 0;
 slicedTimelineCon.addEventListener("mousemove", (event) => {

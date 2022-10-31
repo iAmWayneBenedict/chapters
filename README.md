@@ -50,6 +50,10 @@ Click the `browse` button on the top right corner of the app then navigate to th
 
 You can refer to the [Usage/Examples](#usageexamples)
 
+### There is error redeclaration
+
+Refresh the page or press `F5` or `Ctrl+R`
+
 ## Usage/Examples
 
 -   Copy `Ctrl+C` the timestamps found in the video description.
@@ -112,7 +116,7 @@ items.map((el, index) => {
 
 document
 	.querySelectorAll("yt-formatted-string.style-scope.ytd-text-inline-expander")[0]
-	.append(`\n\n${data.join("")}`);
+	.append(`\n\nCOPY THE TIMESTAMPS BELOW\n\n${data.join("")}`);
 alert("Scroll to the last part of the video description and copy the timestamps");
 ```
 

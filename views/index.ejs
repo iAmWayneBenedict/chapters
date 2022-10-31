@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="shortcut icon" href="img/play.png" type="image/x-icon" />
 		<title>CHAPTERS.</title>
-		<link rel="stylesheets" type="text/css" href="app.css" />
+		<!--		<link rel="stylesheet" type="text/css" href="css/app.css" />-->
 		<link rel="stylesheet" href="css/index.css" />
 	</head>
 	<body>
@@ -22,6 +22,11 @@
 			</div>
 		</nav>
 		<span class="bg"></span>
+		<div class="waiting-modal">
+			<h3>Please wait while we get your timestamps</h3>
+			<br /><br />
+			<img src="gif/Eclipse-1s-200px.gif" style="width: 100px" alt="" />
+		</div>
 		<main>
 			<div class="video-container" style="position: relative">
 				<video>
@@ -69,6 +74,9 @@
 				</div>
 			</div>
 			<div class="add-chapters">
+				<p style="margin-bottom: 2rem; color: #555555; font-size: 14px">
+					You can paste the timestamps here or paste the YouTube video url you want
+				</p>
 				<textarea name="" id="textArea" cols="30" rows="10"></textarea>
 				<input type="text" name="" id="text-copied" hidden />
 				<button class="copy">Add</button>
@@ -85,6 +93,7 @@
 			</div>
 		</main>
 		<!-- import script -->
+		<script></script>
 		<script type="module" src="js/app.js"></script>
 		<script type="module" src="js/index.js"></script>
 		<script type="module" src="js/videoplayer.js"></script>

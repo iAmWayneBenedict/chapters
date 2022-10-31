@@ -7,7 +7,7 @@ const chaptersBody = document.querySelector(".chapters-body");
 const addChapters = document.querySelector(".add-chapters");
 const addChapterBtn = document.querySelector(".add-chapter-btn");
 const bg = document.querySelector(".bg");
-const waitingModal = document.querySelector('.waiting-modal');
+const waitingModal = document.querySelector(".waiting-modal");
 import fetchData from "./index.js";
 
 const hasUrlPath = () => {
@@ -21,10 +21,7 @@ const hasVidSessionPath = () => {
 const getVidUrlTime = () => {
 	if (!hasUrlPath()) return 404;
 
-	let url = window.location;
-	let urlParameters = url.search.replace("?", "");
-	let urlArray = urlParameters.split("&");
-	return urlArray[urlArray.length - 1].split("=")[1];
+	return new URLSearchParams(window.location.search).get("time");
 };
 
 const getVidSessionPath = () => {
@@ -43,62 +40,73 @@ addChapterBtn.addEventListener("click", (event) => {
 });
 
 bg.addEventListener("click", (event) => {
-	if (waitingModal.style.display === "flex") return
+	if (waitingModal.style.display === "flex") return;
 	addChapters.style.display = "none";
 	bg.style.display = "none";
 });
 
 const isUrl = (text) => {
-	if ((text.includes("http") || text.includes("https")) && (text.includes("youtu.be") || text.includes("youtube.com"))) {
-		return true
+	if (
+		(text.includes("http") || text.includes("https")) &&
+		(text.includes("youtu.be") || text.includes("youtube.com"))
+	) {
+		return true;
 	} else {
-		return false
+		return false;
 	}
-}
+};
+
+const handleGetDirPath = async (filename) => {
+	try {
+		let response = await fetch("/files/get-dir-path/" + filename);
+		return await response.json();
+	} catch (err) {
+		console.error(err);
+	}
+
+	return 0;
+};
 
 const handleWebScraping = async (url) => {
 	try {
 		addChapters.style.display = "none";
 		waitingModal.style.display = "flex";
-		bg.style.display = "flex"
+		bg.style.display = "flex";
 
-		let response = await fetch(
-			"/get-key-moments",
-			{
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				method: "POST",
-				body: JSON.stringify({ data: url }),
-			}
-		);
+		let response = await fetch("/files/get-key-moments", {
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			method: "POST",
+			body: JSON.stringify({ data: url }),
+		});
 
 		// readable json
 		let data = await response.json();
 		if (data.response.reject) {
-			alert("Getting timestamp unsuccessful!\nPlease try again!")
+			alert("Getting timestamp unsuccessful!\nPlease try again!");
 			waitingModal.style.display = "none";
-			bg.style.display = "none"
+			bg.style.display = "none";
 
-			return
+			return;
 		}
-		textArea.value = data.response.join("")
-		copy.click()
+		textArea.value = data.response.join("");
+		copy.click();
 	} catch (err) {
-		console.log(err)
+		console.log(err);
 	}
 
 	waitingModal.style.display = "none";
-	bg.style.display = "none"
-}
+	bg.style.display = "none";
+};
 
 let vidName = "";
 
 copy.addEventListener("click", async (e) => {
 	//validate input
 	if (isUrl(textArea.value)) {
-		await handleWebScraping(textArea.value)
+		await handleWebScraping(textArea.value);
 
 		return;
 	}
@@ -222,7 +230,7 @@ const getTimeStamps = (vidName) => {
 	jsonTimeStamp[vidName] = tempArray;
 
 	// reset textarea value
-	textArea.value = ""
+	textArea.value = "";
 	// return the jsonTimeStamp
 	return jsonTimeStamp;
 };
@@ -279,8 +287,9 @@ const chapterToggle = function () {
 const setVidData = async (event) => {
 	if (getVidSessionPath() === 404 || !hasUrlPath()) return;
 
+	let dir = new URLSearchParams(window.location.search).get("dir");
 	let vidSessionPath = getVidSessionPath();
-	video.src = `vids/${vidSessionPath}`;
+	video.src = `${dir}${vidSessionPath}`;
 	chaptersBody.innerHTML = await chaptersDOM().then((data) => data);
 	let timestamp = parseInt(getVidUrlTime().replace("s", ""));
 	video.parentElement.load();
@@ -292,7 +301,7 @@ const setVidData = async (event) => {
 };
 
 let rawData = JSON.parse(localStorage.getItem("vidplayer"));
-vid.addEventListener("change", () => {
+vid.addEventListener("change", async () => {
 	const arrayPath = vid.value.split("\\");
 	let vidName = arrayPath[arrayPath.length - 1];
 	let timestamp = 0;
@@ -301,12 +310,14 @@ vid.addEventListener("change", () => {
 		rawData.map(({ video, time }) => {
 			if (video === vidName) {
 				timestamp = time;
-				return;
 			}
 		});
 	}
+	let { response } = await handleGetDirPath(vidName);
 	let url = window.location;
-	location.href = `${url.pathname}?video=${vidName}&time=${timestamp}s`;
+	location.href = `${url.pathname}?video=${
+		response.file
+	}&time=${timestamp}s&dir=${response.dir.replace("./public", "")}`;
 });
 
 video.parentElement.addEventListener("timeupdate", (event) => {
@@ -348,7 +359,7 @@ window.onresize = () => {
 };
 
 window.onload = () => {
-	textArea.value = ""
+	textArea.value = "";
 	setVidData();
 	setChaptersHeight();
 };

@@ -113,18 +113,21 @@ videoPlayer.onloadeddata = () => {
 	setVidDuration();
 	setVidCurrentDuration();
 };
-
-playButton.addEventListener("click", (event) => {
+const handlePlay = (event) => {
 	videoPlayer.play();
 	playButton.style.display = "none";
 	pauseBtn.style.display = "flex";
-});
+}
 
-pauseBtn.addEventListener("click", (event) => {
+playButton.addEventListener("click", handlePlay);
+
+const handlePause = (event) => {
 	videoPlayer.pause();
 	playButton.style.display = "flex";
 	pauseBtn.style.display = "none";
-});
+}
+
+pauseBtn.addEventListener("click", handlePause);
 
 maximizeBtn.addEventListener("click", (event) => {
 	let img = maximizeBtn.children[0];
@@ -147,7 +150,7 @@ theatreBtn.addEventListener("click", (event) => {
 	}
 });
 
-videoPlayerContainer.addEventListener("transitionend", () => setChaptersHeight());
+videoPlayerContainer.addEventListener("transitionend", () =>	setChaptersHeight() );
 
 let currentIndex = 0;
 slicedTimelineCon.addEventListener("mousemove", (event) => {
@@ -301,5 +304,17 @@ function setVolumeIcon(element) {
 		volumeCon.children[0].children[0].src = "./icons/volume-1.svg";
 	} else if (parseInt(element.value) >= 51 && parseInt(element.value) <= 100) {
 		volumeCon.children[0].children[0].src = "./icons/volume-2.svg";
+	}
+}
+
+window.onkeydown = (event) => {
+
+	if (event.code === "Space") {
+		event.preventDefault()
+		if(videoPlayer.paused) {
+			handlePlay()
+		} else {
+			handlePause()
+		}
 	}
 }

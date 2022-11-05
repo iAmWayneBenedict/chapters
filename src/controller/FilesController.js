@@ -164,8 +164,15 @@ const getKeyMoments = async (req, res) => {
 	await browser.close();
 };
 
+const openVidsDirectory = (req, res) => {
+	require("child_process").spawn("explorer.exe", ["D:\\chapters\\public\\vids"])
+
+	res.json({response: "Success"})
+}
+
 module.exports = {
 	getPath,
 	getDirPath,
 	getKeyMoments,
+	openVidsDirectory
 };

@@ -1,0 +1,8 @@
+
+// Change localhost to your custom url
+// Default is localhost
+BASE_URL='localhost'
+
+// Change port to your custom port
+// Default is port 8000
+PORT="8000"

@@ -1,12 +1,14 @@
 # CHAPTERS
 
-An offline web-based video player that can be used like YouTube.  
- This project intends to help the programmers whose just started programming and doesn't have stable internet connection to sustain YouTube consumptions.
+-   An offline web-based video player that can be used like YouTube.   
+-   You can use this app like any other app but for the browser. You dont need any installation, you just need to download and create a shortcut to your desktop and you can now enjoy the app.  
+-   This project intends to help the programmers whose just started programming and doesn't have stable internet connection to sustain YouTube consumptions.
 
-### :fire: New Features :fire:
+## :fire: New Features :fire:
 
 -   You can now create folders within vids folder to organize your videos
 -   Manually copypasting timestamps no longer needed. You can now paste the url of YouTube video you want to have timestamps in the add chapters textarea
+-   You can now have easy access to the app by opening the chapters folder and run the chapters.bat 
 
 ## Features
 
@@ -15,6 +17,7 @@ An offline web-based video player that can be used like YouTube.
 -   Theatre mode
 -   Fullscreen mode
 -   File crawler
+-   Easy access
 
 ## Run Locally
 
@@ -42,7 +45,8 @@ Start the server
   npm run start
 ```
 
-Copy the env file and paste it as .env, or rename it as .env
+Copy the env file and paste it as .env, or rename it as .env.  
+You can create a shortcut in your desktop and point it in the chapters.bat in the chapters folder for easy access.
 
 ## FAQ
 

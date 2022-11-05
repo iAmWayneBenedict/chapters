@@ -38,15 +38,29 @@ Install dependencies
 ```bash
   yarn install
 ```
+or 
+
+```bash
+  npm install
+```
 
 Start the server
+
+```bash
+  yarn start
+```
+
+or
 
 ```bash
   npm run start
 ```
 
-Copy the env file and paste it as .env, or rename it as .env.  
-You can create a shortcut in your desktop and point it in the chapters.bat in the chapters folder for easy access.
+### To configure the files
+
+-   Copy the env file and paste it as .env, or rename it as .env.  
+-   Open public folder and json folder then rename the rename-jsonfile.json to jsonfile.json.  
+-   You can create a shortcut in your desktop and point it in the chapters.bat in the chapters folder for easy access.
 
 ## FAQ
 

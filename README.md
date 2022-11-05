@@ -158,4 +158,4 @@ alert("Scroll to the last part of the video description and copy the timestamps"
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[GNU Affero General Public License v3.0](https://github.com/iAmWayneBenedict/chapters/blob/master/LICENSE)

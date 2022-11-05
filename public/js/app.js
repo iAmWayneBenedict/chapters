@@ -8,6 +8,7 @@ const addChapters = document.querySelector(".add-chapters");
 const addChapterBtn = document.querySelector(".add-chapter-btn");
 const bg = document.querySelector(".bg");
 const waitingModal = document.querySelector(".waiting-modal");
+const videoTitle = document.querySelector(".video-title");
 import fetchData from "./index.js";
 
 const hasUrlPath = () => {
@@ -29,6 +30,8 @@ const getVidSessionPath = () => {
 
 	return sessionStorage.getItem("vidplayer");
 };
+
+videoTitle.textContent = getVidSessionPath() === 404 ? "" : getVidSessionPath().replace(".mp4", "")
 
 addChapterBtn.addEventListener("click", (event) => {
 	if (!hasUrlPath()) {
@@ -314,6 +317,7 @@ vid.addEventListener("change", async () => {
 		});
 	}
 	let { response } = await handleGetDirPath(vidName);
+	console.log(response)
 	let url = window.location;
 	location.href = `${url.pathname}?video=${
 		response.file

@@ -42,6 +42,8 @@ Start the server
   npm run start
 ```
 
+Copy the env file and paste it as .env, or rename it as .env
+
 ## FAQ
 
 ### How to add videos?

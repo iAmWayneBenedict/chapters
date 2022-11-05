@@ -1,7 +1,10 @@
 const fs = require("fs");
 const router = require('express').Router()
+const path = require('path')
 
 const home = (req, res) => {
+    // const indexHtml = fs.readFileSync("./views/index.ejs", {encoding:'utf8', flag:'r'})
+    // res.set('Content-Type', 'text/html');
     res.render("index");
 }
 

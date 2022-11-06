@@ -4,5 +4,6 @@
 *.mkv
 node_modules/
 .env
+server.exe
 
 jsonfile.json

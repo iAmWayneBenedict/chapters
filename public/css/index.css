@@ -147,7 +147,6 @@ main.theatre .chapters-container {
 .chapters-container .chapters-body {
 	overflow-y: scroll;
 	width: 100%;
-	padding: 0 2rem;
 	/* height: 30rem; */
 	height: 100%;
 	display: flex;
@@ -177,11 +176,17 @@ main.theatre .chapters-container {
 .chapter {
 	width: 100%;
 	display: flex;
-	border-bottom: 1px solid rgb(187, 187, 187);
 	align-items: center;
-	padding: 0.5rem 0;
-	margin: 0.5rem 0;
+	padding: 1rem 2rem;
+	margin: 0.3rem 0;
+	background: #fff;
+	border-radius: 1.2rem;
 	cursor: pointer;
+	transition: all 100ms ease;
+}
+
+.chapter:hover, .chapter.active {
+	background: rgb(200, 200, 241);
 }
 
 .chapter .chapter-img {

@@ -16,6 +16,7 @@ require("dotenv").config();
 //open server
 app.listen(parseInt(process.env.PORT), process.env.BASE_URL, () => {
 	console.log(`Example app listening on url ${process.env.BASE_URL} port ${process.env.PORT}`);
+	console.log(`Open a browser and follow this URL http:\\\\${process.env.BASE_URL}:${process.env.PORT}`)
 });
 
 // app routes

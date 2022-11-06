@@ -14,8 +14,9 @@ const volumeCon = document.querySelector(".volume-con");
 const vidDuration = document.querySelector(".vid-duration");
 const vidCurrentTime = document.querySelector(".vid-current-time");
 const chapterTooltip = document.querySelector(".chapter-tooltip .content");
+const tempAnchor = document.querySelector("#temp-anchor")
 import fetchData from "./index.js";
-import { setChaptersHeight } from "./app.js";
+import { setChaptersHeight, chaptersBody, getVidUrlTime } from "./app.js";
 
 let fetchedData;
 fetchData().then((data) => {
@@ -107,11 +108,13 @@ function setChapterTimeLine(data, key) {
 		timeskipSliced.appendChild(spanParent2);
 	}
 }
-
-videoPlayer.onloadeddata = () => {
+videoPlayer.onloadedmetadata = () => {
 	setChapters();
 	setVidDuration();
 	setVidCurrentDuration();
+}
+videoPlayer.onloadeddata = () => {
+	handleVideoTimeUpdate()
 };
 const handlePlay = (event) => {
 	videoPlayer.play();
@@ -224,14 +227,41 @@ slicedTimelineCon.addEventListener("click", (event) => {
 	const percent = Math.min(Math.max(event.x - parentSize.x), parentSize.width) / parentSize.width;
 	videoPlayer.currentTime = percent * videoPlayer.duration;
 });
+let isChanged = false, prevData = "";
+function handleShiftChapter(currentTime) {
+	let isMatchedTimestamp = false;
+
+	const chaptersArr = [...chaptersBody.children].filter((el) => el.tagName === "DIV")
+    if(!chaptersArr.length) return
+
+	chaptersArr.map((el) => {
+		el.classList.remove("active")
+	})
+
+	let chapter = chaptersArr.filter((el, index) => {
+		if (isMatchedTimestamp) return;
+		if (currentTime < parseInt(el.lastElementChild.value)) {
+
+			isMatchedTimestamp = true
+			return el;
+		}
+	})
+	let chapterActive = chapter[0]?.previousElementSibling?.previousElementSibling || chapter[0]
+	chapterActive.classList.add("active")
+	prevData = chapterActive.id
+}
 
 currentIndex = 0;
-videoPlayer.addEventListener("timeupdate", (event) => {
-	setVidCurrentDuration();
 
+function handleVideoTimeUpdate (event) {
+	handleShiftChapter(videoPlayer.currentTime)
+	setVidCurrentDuration();
+	// console.log(event.target.currentTime)
 	const sliderSlicedSpans = sliderSliced.children;
 	const playedSlicedSpans = playedSliced.children;
+
 	if (sliderSlicedSpans.length !== 0) {
+
 		let sumOfAllValue = 0;
 		for (let index = 0; index < sliderSlicedSpans.length; index++) {
 			playedSlicedSpans[index].classList.remove("past");
@@ -239,7 +269,7 @@ videoPlayer.addEventListener("timeupdate", (event) => {
 		}
 
 		for (let index = 0; index < sliderSlicedSpans.length; index++) {
-			let currentTime = (event.target.currentTime / videoPlayer.duration) * 100;
+			let currentTime = (videoPlayer.currentTime / videoPlayer.duration) * 100;
 			let spanValue = parseFloat(sliderSlicedSpans[index].dataset.value);
 			playedSlicedSpans[index].classList.add("past");
 			playedSlicedSpans[index].classList.remove("active");
@@ -250,14 +280,15 @@ videoPlayer.addEventListener("timeupdate", (event) => {
 			sumOfAllValue += parseFloat(sliderSlicedSpans[index].style.width.replace("%", ""));
 		}
 
-		let currentTime = (event.target.currentTime / videoPlayer.duration) * 100;
+		let currentTime = (videoPlayer.currentTime / videoPlayer.duration) * 100;
 		let parentSize = parseFloat(sliderSlicedSpans[currentIndex].style.width.replace("%", ""));
 		let spanWidth = ((currentTime - sumOfAllValue) / parentSize) * 100;
 		playedSlicedSpans[currentIndex].firstElementChild.style.width = spanWidth + "%";
 		playedSlicedSpans[currentIndex].classList.remove("past");
 		playedSlicedSpans[currentIndex].classList.add("active");
 	}
-});
+}
+videoPlayer.addEventListener("timeupdate", handleVideoTimeUpdate);
 
 const formatter = new Intl.NumberFormat(undefined, { minimumIntegerDigits: 2 });
 

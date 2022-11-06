@@ -3,7 +3,7 @@ const video = document.querySelector("source");
 const textArea = document.querySelector("#textArea");
 const copy = document.querySelector(".copy");
 const textCopied = document.querySelector("#text-copied");
-const chaptersBody = document.querySelector(".chapters-body");
+export const chaptersBody = document.querySelector(".chapters-body");
 const addChapters = document.querySelector(".add-chapters");
 const addChapterBtn = document.querySelector(".add-chapter-btn");
 const bg = document.querySelector(".bg");
@@ -19,7 +19,7 @@ const hasVidSessionPath = () => {
 	return sessionStorage.getItem("vidplayer") !== null;
 };
 
-const getVidUrlTime = () => {
+export const getVidUrlTime = () => {
 	if (!hasUrlPath()) return 404;
 
 	return new URLSearchParams(window.location.search).get("time");
@@ -31,7 +31,10 @@ const getVidSessionPath = () => {
 	return sessionStorage.getItem("vidplayer");
 };
 
-videoTitle.textContent = getVidSessionPath() === 404 ? "" : getVidSessionPath().replace(".mp4", "")
+videoTitle.textContent =
+	getVidSessionPath() === 404
+		? ""
+		: getVidSessionPath().replace(getVidSessionPath().includes(".mp4") ? ".mp4" : ".mkv", "");
 
 addChapterBtn.addEventListener("click", (event) => {
 	if (!hasUrlPath()) {
@@ -227,7 +230,7 @@ const getTimeStamps = (vidName) => {
 		tempObject = { time, val };
 		// push the tempObject to the tempArray
 		// tempObject will be added until the last index of the loop
-		tempArray.push(tempObject);
+		if (tempObject.time) tempArray.push(tempObject);
 	});
 	// set the jsonTimeStamp to the name of the video along with its value of the tempArray
 	jsonTimeStamp[vidName] = tempArray;
@@ -238,19 +241,15 @@ const getTimeStamps = (vidName) => {
 	return jsonTimeStamp;
 };
 
-const chapterTemplate = (
-	title,
-	timestamp,
-	time,
-	img = "./Arrow-floor-sticker-green-yellow.jpg"
-) => {
-	return `<div class="chapter">
+const chapterTemplate = (title, timestamp, time, id) => {
+	return `<div class="chapter" id='${id}'>
 				<div class="chapter-content">
 					<h4>${title}</h4>
 					<p>${timestamp}</p>
 				</div>
 				<input type="hidden" value="${time}">
-			</div>`;
+			</div>
+			<hr style="opacity: 0.4" />`;
 };
 
 const chaptersDOM = async () => {
@@ -274,7 +273,12 @@ const chaptersDOM = async () => {
 						minutes < 10 ? "0" + minutes : minutes
 					}:${seconds < 10 ? "0" + seconds : seconds}`;
 
-					chaptersDOMString += chapterTemplate(val, timestamp, time);
+					chaptersDOMString += chapterTemplate(
+						val,
+						timestamp,
+						time,
+						val.replaceAll(" ", "-")
+					);
 				}
 			});
 		}
@@ -317,7 +321,7 @@ vid.addEventListener("change", async () => {
 		});
 	}
 	let { response } = await handleGetDirPath(vidName);
-	console.log(response)
+	console.log(response);
 	let url = window.location;
 	location.href = `${url.pathname}?video=${
 		response.file

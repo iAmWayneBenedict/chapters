@@ -148,8 +148,10 @@ maximizeBtn.addEventListener("click", (event) => {
 theatreBtn.addEventListener("click", (event) => {
 	if (videoPlayerContainer.classList.contains("theatre")) {
 		videoPlayerContainer.classList.remove("theatre");
+		maximizeBtn.style.display="flex"
 	} else {
 		videoPlayerContainer.classList.add("theatre");
+		maximizeBtn.style.display="none"
 	}
 });
 

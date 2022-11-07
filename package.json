@@ -11,21 +11,20 @@
 		"nodemon": "^2.0.20",
 		"open": "^8.4.0",
 		"path": "^0.12.7",
-		"pkg": "^5.8.0",
 		"pretty": "^2.0.0",
 		"puppeteer": "^19.2.0"
 	},
 	"scripts": {
-		"dev": "vite && nodemon --watch src --watch server.js",
+		"dev": "vite && nodemon --watch src --watch chapters.js",
 		"build": "nexe -t x64-14.15.3",
 		"preview": "vite preview",
 		"browser-start": "node open-browser.js",
-		"start": "nodemon --watch src --watch server.js"
+		"start": "nodemon --watch src --watch chapters.js"
 	},
 	"devDependencies": {},
 	"name": "chapters",
 	"version": "1.0.0",
-	"main": "server.js",
+	"main": "chapters.js",
 	"repository": "https://github.com/iAmWayneBenedict/chapters.git",
 	"author": "iAmWayne <iraolawayne@gmail.com>",
 	"license": "MIT"

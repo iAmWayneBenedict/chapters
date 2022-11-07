@@ -4,8 +4,11 @@
 -   You can use this app like any other app but for the browser. You dont need any installation, you just need to download and create a shortcut to your desktop and you can now enjoy the app.  
 -   This project intends to help the programmers whose just started programming and doesn't have stable internet connection to sustain YouTube consumptions.
 
+### :exclamation: Will be working on the full-blown application for android and windows within a few months. :100:
+
 ## :fire: New Features :fire:
 
+-   We have optimized the usage of CPU and RAM to allow usage on low-end computers
 -   You can now create folders within vids folder to organize your videos
 -   Manually copypasting timestamps no longer needed. You can now paste the url of YouTube video you want to have timestamps in the add chapters textarea
 -   You can now have easy access to the app by opening the chapters folder and run the chapters.bat 
@@ -18,6 +21,7 @@
 -   Fullscreen mode
 -   File crawler
 -   Easy access
+-   Optimized CPU and RAM usage
 
 ## Run Locally
 
@@ -56,11 +60,23 @@ or
   npm run start
 ```
 
+You can also build an application file and create shortcut to your desktop, run this command
+
+```bash
+  yarn build
+```
+Then, an application file is created named `chapters.exe` in the root directory. You can now create a shortcut to your desktop
+
+or use the batch file named `chapters.bat` to create a shortcut
+
+### Note
+
+The batch file `chapters.bat` consumes more cpu and ram usage compared to the application file
+
 ### To configure the files
 
 -   Copy the env file and paste it as .env, or rename it as .env.  
 -   Open public folder and json folder then rename the rename-jsonfile.json to jsonfile.json.  
--   You can create a shortcut in your desktop and point it in the chapters.bat in the chapters folder for easy access.
 
 ## FAQ
 
@@ -158,4 +174,4 @@ alert("Scroll to the last part of the video description and copy the timestamps"
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[GNU Affero General Public License v3.0](https://github.com/iAmWayneBenedict/chapters/blob/master/LICENSE)

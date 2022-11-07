@@ -4,6 +4,8 @@
 -   You can use this app like any other app but for the browser. You dont need any installation, you just need to download and create a shortcut to your desktop and you can now enjoy the app.  
 -   This project intends to help the programmers whose just started programming and doesn't have stable internet connection to sustain YouTube consumptions.
 
+### :exclamation: Will be working on the full-blown application for android and windows within a few months. :100:
+
 ## :fire: New Features :fire:
 
 -   We have optimized the usage of CPU and RAM to allow usage on low-end computers

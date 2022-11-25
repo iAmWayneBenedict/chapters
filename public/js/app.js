@@ -230,8 +230,12 @@ const getTimeStamps = (vidName) => {
 		tempObject = { time, val };
 		// push the tempObject to the tempArray
 		// tempObject will be added until the last index of the loop
-		if (tempObject.time) tempArray.push(tempObject);
+		console.log(tempObject);
+		if (tempObject.time != null) tempArray.push(tempObject);
 	});
+	if (tempArray[0].time !== 0) {
+		tempArray.unshift({time: 0, val: "Introduction"})
+	}
 	// set the jsonTimeStamp to the name of the video along with its value of the tempArray
 	jsonTimeStamp[vidName] = tempArray;
 

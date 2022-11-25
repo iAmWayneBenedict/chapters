@@ -248,7 +248,8 @@ function handleShiftChapter(currentTime) {
 			return el;
 		}
 	})
-	let chapterActive = chapter[0]?.previousElementSibling?.previousElementSibling || chapter[0]
+	let chapterLength = chaptersArr.length
+	let chapterActive = chapter[0]?.previousElementSibling?.previousElementSibling || chapter[0] || chaptersArr[chapterLength-1]
 	chapterActive.classList.add("active")
 	prevData = chapterActive.id
 }

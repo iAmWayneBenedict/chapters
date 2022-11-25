@@ -78,12 +78,10 @@ const getKeyMoments = async (req, res) => {
 
 	const grabTimeStamps = await page.evaluate(async () => {
 		let responseData = null;
-		let timerCounter = 0;
 
 		function getData() {
 			return new Promise((resolve, reject) => {
 				setInterval(async () => {
-					timerCounter++;
 					let seeMore = document.querySelectorAll(
 						"#expand.button.style-scope.ytd-text-inline-expander"
 					);
@@ -146,15 +144,11 @@ const getKeyMoments = async (req, res) => {
 						let time = el.lastElementChild.textContent;
 						data.push(`${time} ${titleText}\n`);
 					});
-					return resolve(data);
-				}, 10000);
-
-				setInterval(() => {
-					console.log(timerCounter);
-					if (timerCounter > 1) {
+					if (data.length > 0)
+						return resolve(data);
+					else
 						return resolve({ reject: true });
-					}
-				}, 1000);
+				}, 10000);
 			});
 		}
 		return await getData();

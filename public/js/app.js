@@ -177,6 +177,7 @@ copy.addEventListener("click", async (e) => {
 const getTimeStamps = (vidName) => {
 	// get the value of the textarea
 	let enteredText = textArea.value;
+	if (enteredText === "") return;
 	// split the string of timestamps with new line ("\n")
 	let chapters = enteredText.split("\n");
 	// declare a container for the inputted timestamps
@@ -234,7 +235,7 @@ const getTimeStamps = (vidName) => {
 		if (tempObject.time != null) tempArray.push(tempObject);
 	});
 	if (tempArray[0].time !== 0) {
-		tempArray.unshift({time: 0, val: "Introduction"})
+		tempArray.unshift({ time: 0, val: "Introduction" });
 	}
 	// set the jsonTimeStamp to the name of the video along with its value of the tempArray
 	jsonTimeStamp[vidName] = tempArray;

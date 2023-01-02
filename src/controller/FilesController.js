@@ -144,10 +144,9 @@ const getKeyMoments = async (req, res) => {
 						let time = el.lastElementChild.textContent;
 						data.push(`${time} ${titleText}\n`);
 					});
-					if (data.length > 0)
-						return resolve(data);
-					else
-						return resolve({ reject: true });
+					console.log(data);
+					if (data.length > 0) return resolve(data);
+					else return resolve({ reject: true });
 				}, 10000);
 			});
 		}
@@ -159,16 +158,16 @@ const getKeyMoments = async (req, res) => {
 };
 
 const openVidsDirectory = (req, res) => {
-	require("child_process").spawn("explorer.exe", ["D:\\chapters\\public\\vids"])
+	require("child_process").spawn("explorer.exe", ["D:\\chapters\\public\\vids"]);
 
 	res.send(`
 		<script> window.close() </script>
-	`)
-}
+	`);
+};
 
 module.exports = {
 	getPath,
 	getDirPath,
 	getKeyMoments,
-	openVidsDirectory
+	openVidsDirectory,
 };

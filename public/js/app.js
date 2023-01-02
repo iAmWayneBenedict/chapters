@@ -97,7 +97,9 @@ const handleWebScraping = async (url) => {
 
 			return;
 		}
-		textArea.value = data.response.join("");
+
+		let res = removeDuplicateChapter(data.response);
+		textArea.value = res.join("");
 		copy.click();
 	} catch (err) {
 		console.log(err);
@@ -105,6 +107,15 @@ const handleWebScraping = async (url) => {
 
 	waitingModal.style.display = "none";
 	bg.style.display = "none";
+};
+
+let removeDuplicateChapter = (strArr) => {
+	for (let index = 0; index < strArr.length; index++) {
+		let len = strArr[index].length;
+		if (strArr[index][len - 2] === " ") strArr.splice(index, 1);
+	}
+
+	return strArr;
 };
 
 let vidName = "";
@@ -232,7 +243,7 @@ const getTimeStamps = (vidName) => {
 		// push the tempObject to the tempArray
 		// tempObject will be added until the last index of the loop
 		console.log(tempObject);
-		if (tempObject.time != null) tempArray.push(tempObject);
+		if (tempObject.time) tempArray.push(tempObject);
 	});
 	if (tempArray[0].time !== 0) {
 		tempArray.unshift({ time: 0, val: "Introduction" });

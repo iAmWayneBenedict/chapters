@@ -14,7 +14,7 @@ const volumeCon = document.querySelector(".volume-con");
 const vidDuration = document.querySelector(".vid-duration");
 const vidCurrentTime = document.querySelector(".vid-current-time");
 const chapterTooltip = document.querySelector(".chapter-tooltip .content");
-const tempAnchor = document.querySelector("#temp-anchor")
+const tempAnchor = document.querySelector("#temp-anchor");
 import fetchData from "./index.js";
 import { setChaptersHeight, chaptersBody, getVidUrlTime } from "./app.js";
 
@@ -88,7 +88,7 @@ function setChapterTimeLine(data, key) {
 	}
 
 	const sliderSlicedSpans = sliderSliced.children;
-	const playedSlicedSpans = playedSliced.children;
+
 	playedSliced.innerHTML = "";
 
 	for (let index = 0; index < sliderSlicedSpans.length; index++) {
@@ -112,15 +112,15 @@ videoPlayer.onloadedmetadata = () => {
 	setChapters();
 	setVidDuration();
 	setVidCurrentDuration();
-}
+};
 videoPlayer.onloadeddata = () => {
-	handleVideoTimeUpdate()
+	handleVideoTimeUpdate();
 };
 const handlePlay = (event) => {
 	videoPlayer.play();
 	playButton.style.display = "none";
 	pauseBtn.style.display = "flex";
-}
+};
 
 playButton.addEventListener("click", handlePlay);
 
@@ -128,7 +128,7 @@ const handlePause = (event) => {
 	videoPlayer.pause();
 	playButton.style.display = "flex";
 	pauseBtn.style.display = "none";
-}
+};
 
 pauseBtn.addEventListener("click", handlePause);
 
@@ -148,14 +148,14 @@ maximizeBtn.addEventListener("click", (event) => {
 theatreBtn.addEventListener("click", (event) => {
 	if (videoPlayerContainer.classList.contains("theatre")) {
 		videoPlayerContainer.classList.remove("theatre");
-		maximizeBtn.style.display="flex"
+		maximizeBtn.style.display = "flex";
 	} else {
 		videoPlayerContainer.classList.add("theatre");
-		maximizeBtn.style.display="none"
+		maximizeBtn.style.display = "none";
 	}
 });
 
-videoPlayerContainer.addEventListener("transitionend", () =>	setChaptersHeight() );
+videoPlayerContainer.addEventListener("transitionend", () => setChaptersHeight());
 
 let currentIndex = 0;
 slicedTimelineCon.addEventListener("mousemove", (event) => {
@@ -229,42 +229,44 @@ slicedTimelineCon.addEventListener("click", (event) => {
 	const percent = Math.min(Math.max(event.x - parentSize.x), parentSize.width) / parentSize.width;
 	videoPlayer.currentTime = percent * videoPlayer.duration;
 });
-let isChanged = false, prevData = "";
+let isChanged = false,
+	prevData = "";
 function handleShiftChapter(currentTime) {
 	let isMatchedTimestamp = false;
 
-	const chaptersArr = [...chaptersBody.children].filter((el) => el.tagName === "DIV")
-    if(!chaptersArr.length) return
+	const chaptersArr = [...chaptersBody.children].filter((el) => el.tagName === "DIV");
+	if (!chaptersArr.length) return;
 
 	chaptersArr.map((el) => {
-		el.classList.remove("active")
-	})
+		el.classList.remove("active");
+	});
 
 	let chapter = chaptersArr.filter((el, index) => {
 		if (isMatchedTimestamp) return;
 		if (currentTime < parseInt(el.lastElementChild.value)) {
-
-			isMatchedTimestamp = true
+			isMatchedTimestamp = true;
 			return el;
 		}
-	})
-	let chapterLength = chaptersArr.length
-	let chapterActive = chapter[0]?.previousElementSibling?.previousElementSibling || chapter[0] || chaptersArr[chapterLength-1]
-	chapterActive.classList.add("active")
-	prevData = chapterActive.id
+	});
+	let chapterLength = chaptersArr.length;
+	let chapterActive =
+		chapter[0]?.previousElementSibling?.previousElementSibling ||
+		chapter[0] ||
+		chaptersArr[chapterLength - 1];
+	chapterActive.classList.add("active");
+	prevData = chapterActive.id;
 }
 
 currentIndex = 0;
 
-function handleVideoTimeUpdate (event) {
-	handleShiftChapter(videoPlayer.currentTime)
+function handleVideoTimeUpdate(event) {
+	handleShiftChapter(videoPlayer.currentTime);
 	setVidCurrentDuration();
 	// console.log(event.target.currentTime)
 	const sliderSlicedSpans = sliderSliced.children;
 	const playedSlicedSpans = playedSliced.children;
 
 	if (sliderSlicedSpans.length !== 0) {
-
 		let sumOfAllValue = 0;
 		for (let index = 0; index < sliderSlicedSpans.length; index++) {
 			playedSlicedSpans[index].classList.remove("past");
@@ -342,13 +344,12 @@ function setVolumeIcon(element) {
 }
 
 window.onkeydown = (event) => {
-
 	if (event.code === "Space") {
-		event.preventDefault()
-		if(videoPlayer.paused) {
-			handlePlay()
+		event.preventDefault();
+		if (videoPlayer.paused) {
+			handlePlay();
 		} else {
-			handlePause()
+			handlePause();
 		}
 	}
-}
+};

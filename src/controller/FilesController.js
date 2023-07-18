@@ -71,10 +71,10 @@ const getDirPath = async (req, res) => {
 
 const getKeyMoments = async (req, res) => {
 	const requestUrl = req.body.data;
-	const browser = await puppeteer.launch({ headless: true });
+	const browser = await puppeteer.launch({ headless: "new" });
 	const page = await browser.newPage();
 	await page.goto(requestUrl + "&themeRefresh=1");
-	// await page.screenshot({path:"mywebsite.png"})
+	await page.screenshot({ path: "mywebsite.png" });
 
 	const grabTimeStamps = await page.evaluate(async () => {
 		let responseData = null;
@@ -152,7 +152,7 @@ const getKeyMoments = async (req, res) => {
 		}
 		return await getData();
 	});
-	// console.log(grabTimeStamps)
+	console.log(grabTimeStamps);
 	res.json({ response: grabTimeStamps });
 	await browser.close();
 };

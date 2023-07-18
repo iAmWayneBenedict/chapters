@@ -185,7 +185,8 @@ main.theatre .chapters-container {
 	transition: all 100ms ease;
 }
 
-.chapter:hover, .chapter.active {
+.chapter:hover,
+.chapter.active {
 	background: rgb(200, 200, 241);
 }
 
@@ -270,10 +271,10 @@ button img {
 	z-index: 100;
 	background: rgb(0, 0, 0);
 	background: linear-gradient(
-			0deg,
-			rgba(0, 0, 0, 1) 0%,
-			rgba(0, 0, 0, 0.5816527294511555) 51%,
-			rgba(0, 212, 255, 0) 100%
+		0deg,
+		rgba(0, 0, 0, 1) 0%,
+		rgba(0, 0, 0, 0.5816527294511555) 21%,
+		rgba(0, 212, 255, 0) 100%
 	);
 }
 
